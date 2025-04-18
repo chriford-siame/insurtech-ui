@@ -44,7 +44,7 @@ function Login() {
                         className='border border-gray-300 p-2'
                         onChange={handleUsernameChange}
                         required={true}
-                        maxLength={5} />
+                        maxLength={50} />
 
                     <label htmlFor="password">Password</label>
                     <input

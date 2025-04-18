@@ -52,7 +52,7 @@ function Login() {
                         className='border border-gray-300 p-2'
                         onChange={handleUsernameChange}
                         required={true}
-                        maxLength={5} />
+                        maxLength={50} />
 
                     <label htmlFor="firstname">First Name</label>
                     <input
@@ -63,7 +63,7 @@ function Login() {
                         className='border border-gray-300 p-2'
                         onChange={handlesetFirstNameChange}
                         required={true}
-                        maxLength={5} />
+                        maxLength={50} />
 
                     <label htmlFor="lastname">Last Name</label>
                     <input
@@ -74,7 +74,7 @@ function Login() {
                         className='border border-gray-300 p-2'
                         onChange={handleLastNameChange}
                         required={true}
-                        maxLength={5} />
+                        maxLength={50} />
 
 
                     <label htmlFor="password">Password</label>
