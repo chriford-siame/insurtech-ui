@@ -1,77 +1,90 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import OpenAI from 'openai';
+import { IClaim } from 'src/interfaces/claim';
+import useAddClaim from 'src/hooks/createClaim';
 
 function ClaimCreation() {
-    const [files, setFiles] = useState<FileList | null>(null);
-    const [claimType, setClaimType] = useState<string | null>('');
-    const [firstName, setFirstName] = useState<string | null>('');
-    const [middleName, setMiddleName] = useState<string | null>('');
-    const [lastName, setLastName] = useState<string | null>('');
-    const [incident, setIncident] = useState<string | null>('');
-    const [nrc, setNRC] = useState<number>(0);
-    const [PhoneNumber, setPhoneNumber] = useState<string>('');
+    const [formIsFilled, setFormIsFilled] = useState<boolean>(false);
+    const [files, setFiles] = useState<any>([]);
+    const [data, setData] = useState<Omit<IClaim, 'id' | 'date_issued'>>({
+        first_name: '',
+        middle_name: '',
+        last_name: '',
+        claim_type: '',
+        nrc: '',
+        incident: '',
+        phone_number: '',
+        status: 'pending',
+    })
+    const [AIResponse, setAIResponse] = useState<string>('');
+
+
+    useAddClaim(data, files, formIsFilled);
+
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setFiles(e.target.files);
     };
     const handleClaimTypeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-        setClaimType(e.target.value);
+        setData({ ...data, claim_type: e.target.value || '' })
     };
 
     const handleFirstNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setFirstName(e.target.value);
+        setData({ ...data, first_name: e.target.value || '' })
     };
 
     const handleMiddleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setMiddleName(e.target.value);
+        setData({ ...data, middle_name: e.target.value || '' })
     };
 
     const handleLastNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setLastName(e.target.value);
+        setData({ ...data, last_name: e.target.value || '' })
     };
 
     const handleNRCChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setNRC(parseInt(e.target.value));
+        setData({ ...data, nrc: e.target.value.toString() })
     };
 
     const handleIncidentChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-        setIncident(e.target.value);
+        setData({ ...data, incident: e.target.value || '' })
     };
 
     const handlePhoneNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setPhoneNumber(e.target.value);
+        setData({ ...data, phone_number: e.target.value || '' })
     };
 
+    // try {
+    //     const openai = new OpenAI({
+    //         apiKey: process.env.OPENAI_KEY,
+    //     });
+    //     const completion = openai.chat.completions.create({
+    //         model: "gpt-4o-mini",
+    //         store: true,
+    //         messages: [
+    //             { "role": "user", "content": `return true if the following insurance claim incident is valid otherwise return false without using more that 10 words: \n ${data.incident}` },
+    //         ],
+    //     });
+
+    //     completion.then((result: any) => {
+    //         const message = `${result.choices[0].message}`;
+    //         if (!message.toLowerCase().includes('true')) {
+    //             alert("")
+    //             return
+    //         }
+    //     });
+    // } catch (err: any) {
+    //     if (err.status === 429) {
+    //         console.error("Rate limit exceeded. Please try again later.");
+    //     } else {
+    //         console.error("OpenAI API error:", err);
+    //     }
+    // }
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        if (!files || files.length === 0) return;
 
-        const formData = new FormData();
-        for (let i = 0; i < files.length; i++) {
-            formData.append('files', files[i]); // Or 'files[]' depending on backend
-        }
-
-        try {
-            const res = await fetch('/upload', {
-                method: 'POST',
-                body: formData,
-            });
-
-            const data = await res.json();
-            console.log('Upload successful:', data);
-        } catch (err) {
-            console.error('Upload failed:', err);
-        }
-        // Log form values
-        console.log("Form Submission:");
-        console.log("First Name:", firstName);
-        console.log("Middle Name:", middleName);
-        console.log("Last Name:", lastName);
-        console.log("NRC:", nrc);
-        console.log("Claim Type:", claimType);
-        console.log("Files:", files);
-        console.log("Incident:", incident);
-        console.log("phone number:", PhoneNumber);
+        setFormIsFilled(true)
     };
+
     return (
         <div className="flex justify-center">
             <div className=" md:w-[75%] lg:md:w-[75%] xl:md:w-[75%] text-2xl">
@@ -111,7 +124,6 @@ function ClaimCreation() {
                         type="text"
                         className='border border-gray-300 p-2'
                         onChange={handleMiddleNameChange}
-                        required={true}
                     />
                     <input
                         name='phonenumber'
@@ -123,15 +135,15 @@ function ClaimCreation() {
                     />
                     <hr />
                     <label htmlFor="claimType">Claim Type</label>
-                    <select name="claimType" id="claimType" className='border border-gray-300 p-2' onChange={handleClaimTypeChange} value={claimType || ''}>
-                        <option defaultValue="Motor Insurance Claims">Motor Insurance Claims</option>
-                        <option value="Medical Insurance Claims">Medical Insurance Claims</option>
-                        <option value="Property Insurance Claims">Property Insurance Claims</option>
-                        <option value="Life Insurance Claims">Life Insurance Claims</option>
-                        <option value="Travel Insurance Claims">Travel Insurance Claims</option>
-                        <option value="Agricultural Insurance Claims">Agricultural Insurance Claims</option>
-                        <option value="Workmen’s Compensation Claims">Workmen’s Compensation Claims</option>
-                        <option value="Other">Other</option>
+                    <select name="claimType" id="claimType" className='border border-gray-300 p-2' onChange={handleClaimTypeChange} value={data.claim_type}>
+                        <option defaultValue="motor">Motor Insurance</option>
+                        <option value="medical">Medical Insurance</option>
+                        <option value="property">Property Insurance</option>
+                        <option value="life">Life Insurance</option>
+                        <option value="travel">Travel Insurance</option>
+                        <option value="agriculture">Agricultural Insurance</option>
+                        <option value="workmen">Workmen’s Compensation</option>
+                        <option value="other">Other</option>
                     </select>
                     <input
                         className='border border-gray-300 p-2 cur'

@@ -1,13 +1,20 @@
 import React, { useState } from 'react';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import CustomLoarder from './components/Loarder';
 import Navbar from './components/Navbar';
+import { useAuth } from './hooks/useAuth';
+import useUser from './hooks/User';
 
 const ClaimCreation = React.lazy(() => import('./pages/claim/Create'));
 const ClaimView = React.lazy(() => import('./pages/claim/View'));
 const ClaimList = React.lazy(() => import('./pages/claim/List'));
+const Login = React.lazy(() => import('./pages/auth/Login'));
+const Signup = React.lazy(() => import('./pages/auth/Signup'));
+const RevieverPannel = React.lazy(() => import('./pages/reviewer/ReviewerPannel'));
 
 function App() {
+  const { isAuthenticated } = useAuth();
+  const { user } = useUser();
   return (
     <div>
       <Navbar />
@@ -19,21 +26,37 @@ function App() {
                 <React.Suspense fallback={
                   <CustomLoarder />
                 }>
-                  <ClaimList />
+                  {isAuthenticated ? user && !user.is_superuser ? <ClaimList />: <RevieverPannel /> : <Navigate to="/login" />}
                 </React.Suspense>
               } />
-              <Route path="/claim/add" element={
-                <React.Suspense fallback={
-                  <CustomLoarder />
-                }>
-                  <ClaimCreation />
-                </React.Suspense>
-              } />
+              { user && !user.is_superuser ?
+                <Route path="/claim/add" element={
+                  <React.Suspense fallback={
+                    <CustomLoarder />
+                  }>
+                    {isAuthenticated ? <ClaimCreation /> : <Navigate to="/login" />}
+                  </React.Suspense>
+                } />
+              : null}
               <Route path="/claim/:id/view" element={
                 <React.Suspense fallback={
                   <CustomLoarder />
                 }>
-                  <ClaimView />
+                  {isAuthenticated ? <ClaimView /> : <Navigate to="/login" />}
+                </React.Suspense>
+              } />
+              <Route path="/login" element={
+                <React.Suspense fallback={
+                  <CustomLoarder />
+                }>
+                  <Login />
+                </React.Suspense>
+              } />
+              <Route path="/register" element={
+                <React.Suspense fallback={
+                  <CustomLoarder />
+                }>
+                  <Signup />
                 </React.Suspense>
               } />
 
