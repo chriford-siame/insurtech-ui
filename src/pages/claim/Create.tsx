@@ -1,27 +1,24 @@
 import React, { useEffect, useState } from 'react';
 import OpenAI from 'openai';
 import { IClaim } from 'src/interfaces/claim';
-import useAddClaim from 'src/hooks/createClaim';
 import axios from 'axios';
 
 function ClaimCreation() {
-    const [formIsFilled, setFormIsFilled] = useState<boolean>(false);
-    const [files, setFiles] = useState<any>([]);
-    const [data, setData] = useState<Omit<IClaim, 'id' | 'date_issued'>>({
+    const [files, setFiles] = useState<FileList | []>([]);
+    const [data, setData] = useState<Omit<IClaim, 'id' | 'date_issued' | 'status'>>({
         first_name: '',
         middle_name: '',
         last_name: '',
-        claim_type: '',
+        claim_type: 'motor',
         nrc: '',
         incident: '',
         phone_number: '',
-        status: 'pending',
     })
 
-    useAddClaim(data, files, formIsFilled);
-
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setFiles(e.target.files);
+        if (e.target.files) {
+            setFiles(e.target.files);
+        }
     };
     const handleClaimTypeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
         setData({ ...data, claim_type: e.target.value || '' })
@@ -54,8 +51,39 @@ function ClaimCreation() {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
-        console.log(process.env.REACT_APP_OPENAI_API_KEY)
+        const token = localStorage.getItem('access_token');
 
+        const form = new FormData();
+
+        form.append("first_name", data.first_name);
+        form.append("middle_name", data.middle_name);
+        form.append("last_name", data.last_name);
+        form.append("claim_type", data.claim_type);
+        form.append("nrc", data.nrc);
+        form.append("incident", data.incident);
+        form.append("phone_number", data.phone_number);
+
+        for (let i = 0; i < files.length; i++) {
+            form.append("files", files[i]);
+        }
+          
+        try {
+            await axios.post(
+                "http://localhost:8000/claims/",
+                form,
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                        "Content-Type": "multipart/form-data",
+                    },
+                }
+            );
+            window.location.href = "/";
+        } catch (err) {
+            console.error(err);
+        } finally {
+            console.log("creating...")
+        }
         // async function incidentIsValid() {
         //     const client = new OpenAI({
         //         apiKey: process.env.REACT_APP_OPENAI_API_KEY,
@@ -70,7 +98,6 @@ function ClaimCreation() {
         //         setFormIsFilled(true)
         //     }
         // }
-        setFormIsFilled(true)
         // incidentIsValid()
     };
 
