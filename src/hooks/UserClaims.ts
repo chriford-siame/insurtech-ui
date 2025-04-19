@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { IClaim } from "src/interfaces/claim";
+import { ICustomClaim } from "src/interfaces/user";
 
 const useUserClaims = () => {
-  const [userClaims, setUserClaims] = useState<IClaim[] | []>([]);
+  const [userClaims, setUserClaims] = useState<ICustomClaim[] | []>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -11,7 +11,7 @@ const useUserClaims = () => {
     const fetchUserClaims = async () => {
       const token = localStorage.getItem('access_token');
       try {
-        const claimResponse = await axios.get<IClaim[]>(
+        const claimResponse = await axios.get<ICustomClaim[]>(
           `http://localhost:8000/claims/list/`,
           {
             headers: {

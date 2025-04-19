@@ -5,6 +5,7 @@ import useClaims from 'src/hooks/Claims';
 import { textShortener } from 'src/lib/utils';
 import { IClaim } from 'src/interfaces/claim';
 import useUserClaims from 'src/hooks/UserClaims';
+import { ICustomClaim } from 'src/interfaces/user';
 
 function ClaimList() {
     const navigate = useNavigate();
@@ -13,8 +14,8 @@ function ClaimList() {
         navigate(path);
     }
 
-    const claimViewPath = (claim: any) => {
-        let path = `/claim/${claim.id}/view`;
+    const claimViewPath = (id: string | number) => {
+        let path = `/claim/${id}/view`;
         navigate(path);
     }
 
@@ -33,7 +34,7 @@ function ClaimList() {
                 </div>
             </div>
             <div className='mt-4 w-auto grid lg:grid-cols-2 md:grid-cols-2 gap-2'>
-                {userClaims.map((claim: IClaim) => {
+                {userClaims.map((claim: ICustomClaim) => {
                     return (
                         <div key={claim.id} className='border shadow-md p-2 text-[12pt]'>
                             <div className='flex justify-between'>
@@ -42,8 +43,8 @@ function ClaimList() {
                                 <p className='text-gray-700'>{claim.status}</p>
                             </div>
                             <p className='text-gray-700'>{textShortener(claim.incident, 200)}</p>
-                            <div className="flex justify-center">
-                                <a onClick={() => claimViewPath(claim)} className="text-blue-400 text-[12pt] rounded-md  px-2 flex justify-center gap-1 cursor-pointer"><span><Eye size={15} className='mt-2' /> </span> <p>view claim</p></a>
+                            <div className="flex justify-center pb-0">
+                                <a onClick={() => claimViewPath(claim.id)} className="text-blue-400 text-[12pt] rounded-md  px-2 flex justify-center gap-1 cursor-pointer"><span><Eye size={15} className='mt-2' /> </span> <p>view claim</p></a>
                             </div>
                         </div>
                     );
