@@ -5,6 +5,7 @@ import axios from 'axios';
 
 function ClaimCreation() {
     const [files, setFiles] = useState<FileList | []>([]);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
     const [data, setData] = useState<Omit<IClaim, 'id' | 'date_issued' | 'status'>>({
         first_name: '',
         middle_name: '',
@@ -50,6 +51,7 @@ function ClaimCreation() {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+        setIsLoading(true)
 
         const token = localStorage.getItem('access_token');
 
@@ -80,9 +82,8 @@ function ClaimCreation() {
             );
             window.location.href = "/";
         } catch (err) {
+            setIsLoading(false)
             console.error(err);
-        } finally {
-            console.log("creating...")
         }
         // async function incidentIsValid() {
         //     const client = new OpenAI({
@@ -171,7 +172,7 @@ function ClaimCreation() {
                     />
                     <sup className='text-gray-600 mt-2 ml-2'>Note: you can only upload photos and pdf documents</sup>
                     <textarea name="incident" onChange={handleIncidentChange} className='border border-gray-300 p-2' placeholder='Enter incident description here'></textarea>
-                    <button type="submit" className='text-white bg-blue-600 p-2 w-full'>submit</button>
+                    <button type="submit" disabled={isLoading} className={`text-white rounded-sm ${isLoading ? 'bg-gray-600 cursor-progress' : 'bg-blue-600'} p-2 w-full`}>submit</button>
                 </form>
             </div>
         </div>
