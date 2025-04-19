@@ -5,9 +5,10 @@ import useUser from "./User";
 
 const useAddClaim = (
   formData: Omit<IClaim, 'id' | 'date_issued'>,
-  claimFiles: any,
+  claimFiles: any[],
   formIsValid: boolean
 ) => {
+  const [cleanedFiles, setCleanedFiles] = useState<any[]>([]);
   const [claim, setClaim] = useState<IClaim>();
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
@@ -36,12 +37,17 @@ const useAddClaim = (
 
       for (let i = 0; i < claimFiles.length; i++) {
         form.append("files", claimFiles[i]);
+        setCleanedFiles([...cleanedFiles, claimFiles[i]])
+        
       }
 
       try {
         const response = await axios.post(
           "http://localhost:8000/claims/",
-          form,
+          {
+            ...formData,
+            files: cleanedFiles
+          },
           {
             headers: {
               Authorization: `Bearer ${token}`,
