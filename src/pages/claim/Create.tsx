@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import OpenAI from 'openai';
 import { IClaim } from 'src/interfaces/claim';
 import useAddClaim from 'src/hooks/createClaim';
+import axios from 'axios';
 
 function ClaimCreation() {
     const [formIsFilled, setFormIsFilled] = useState<boolean>(false);
@@ -16,11 +17,8 @@ function ClaimCreation() {
         phone_number: '',
         status: 'pending',
     })
-    const [AIResponse, setAIResponse] = useState<string>('');
-
 
     useAddClaim(data, files, formIsFilled);
-
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setFiles(e.target.files);
@@ -53,36 +51,27 @@ function ClaimCreation() {
         setData({ ...data, phone_number: e.target.value || '' })
     };
 
-    // try {
-    //     const openai = new OpenAI({
-    //         apiKey: process.env.OPENAI_KEY,
-    //     });
-    //     const completion = openai.chat.completions.create({
-    //         model: "gpt-4o-mini",
-    //         store: true,
-    //         messages: [
-    //             { "role": "user", "content": `return true if the following insurance claim incident is valid otherwise return false without using more that 10 words: \n ${data.incident}` },
-    //         ],
-    //     });
-
-    //     completion.then((result: any) => {
-    //         const message = `${result.choices[0].message}`;
-    //         if (!message.toLowerCase().includes('true')) {
-    //             alert("")
-    //             return
-    //         }
-    //     });
-    // } catch (err: any) {
-    //     if (err.status === 429) {
-    //         console.error("Rate limit exceeded. Please try again later.");
-    //     } else {
-    //         console.error("OpenAI API error:", err);
-    //     }
-    // }
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
+        console.log(process.env.REACT_APP_OPENAI_API_KEY)
+
+        // async function incidentIsValid() {
+        //     const client = new OpenAI({
+        //         apiKey: process.env.REACT_APP_OPENAI_API_KEY,
+        //         dangerouslyAllowBrowser: true
+        //     });
+        //     const response = await client.responses.create({
+        //         model: "gpt-4.1",
+        //         input: `Is the following insurance claim incident valid or not, just return either true or false "${data.incident}"`,
+        //     });
+        //     if (response.output_text.toLowerCase() == 'false') alert('incident not valid')
+        //     else {
+        //         setFormIsFilled(true)
+        //     }
+        // }
         setFormIsFilled(true)
+        // incidentIsValid()
     };
 
     return (
