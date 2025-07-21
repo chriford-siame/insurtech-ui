@@ -4,36 +4,50 @@ import { IClaim } from 'src/interfaces/claim';
 import useMakeData from 'src/hooks/make';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { IMotorInsurance } from 'src/interfaces/quotation';
+
 
 function MotorInsuranceForm() {
     const [isLoading, setIsLoading] = useState<boolean>(false);
-    const [data, setData] = useState<Omit<IClaim, 'id' | 'date_issued' | 'status'> | any>({
-        registration_mark: '',
+    const [data, setData] = useState<Omit<IMotorInsurance, 'id' | 'created_at'>>({
+        registration_number: '',
         make_year: '',
         make: '',
-        make_model: '',
+        model: '',
         engine_capacity: '',
         engine_number: '',
-        engine_chassis: '',
+        chassis_number: '',
+        color: '',
+        vehicle_use: '',
+        cover_end: '',
     })
 
     const {makes, makeYears, models} = useMakeData();
 
     const handleRegistrationMarkChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setData({ ...data, registration_mark: e.target.value || '' })
+        setData({ ...data, registration_number: e.target.value || '' })
     };
     const handleEngineNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setData({ ...data, engine_number: e.target.value || '' })
     };
     const handleEngineChassisChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setData({ ...data, engine_chassis: e.target.value || '' })
+        setData({ ...data, chassis_number: e.target.value || '' })
+    };
+    const handleColorChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setData({ ...data, color: e.target.value || '' })
+    };
+    const handleCoverEndChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setData({ ...data, cover_end: e.target.value || '' })
     };
     
     const handleMakeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
         setData({ ...data, make: e.target.value || '' })
     };
-    const handleMakeModelChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-        setData({ ...data, make_model: e.target.value || '' })
+    const handleVehicleUseChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        setData({ ...data, vehicle_use: e.target.value || '' })
+    };
+    const handleModelChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        setData({ ...data, model: e.target.value || '' })
     };
     const handleMakeYearChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
         setData({ ...data, make_year: e.target.value || '' })
@@ -56,14 +70,15 @@ function MotorInsuranceForm() {
 
         const form = new FormData();
 
-        form.append("registration_mark", data.registration_mark);
-        form.append("make_year", data.make_year);
-        form.append("make", data.make);
-        form.append("make_model", data.make_model);
+        form.append("registration_number", data.registration_number);
+        form.append("model", data.model);
         form.append("engine_capacity", data.engine_capacity);
         form.append("engine_number", data.engine_number);
-        form.append("engine_chassis", data.engine_chassis);
-        
+        form.append("chassis_number", data.chassis_number);
+        form.append("color", data.color);
+        form.append("vehicle_use", data.vehicle_use);
+        form.append("cover_end", data.cover_end);
+
         try {
             await axios.post(
                 "http://localhost:8000/quotation/",
@@ -71,10 +86,10 @@ function MotorInsuranceForm() {
                 {
                     headers: {
                         Authorization: `Bearer ${token}`,
-                        "Content-Type": "multipart/form-data",
+                        "Content-Type": "application/json",
                     },
                 }
-            ).then((response) => console.log(response.data));
+            );
             window.location.href = "/";
         } catch (err) {
             setIsLoading(false)
@@ -98,15 +113,14 @@ function MotorInsuranceForm() {
                 </div>
                 <form onSubmit={handleSubmit} className='grid container gap-2 text-[12pt]'>
                     <input
-                        name='registration_mark'
+                        name='registration_number'
                         placeholder='Vehicle registration number'
                         type="text"
-                        className='border border-gray-300 p-2'
+                        className='border border-gray-300 p-1 py-1'
                         onChange={handleRegistrationMarkChange}
                         required={true}
                         maxLength={10} 
                     />
-                    
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-2">
                         <div className='grid'>
                             <label htmlFor="make_year" className='flex gap-1'>Year <Required /></label>
@@ -121,7 +135,7 @@ function MotorInsuranceForm() {
                         </div>
                         <div className='grid'>
                             <label htmlFor="make" className='flex gap-1'>Make <Required /></label>
-                            <select name="make" id="make" className='border border-gray-300 bg-gray-100 p-2 ' required={true} onChange={handleMakeChange} value={data.claim_type}>
+                            <select name="make" id="make" className='border border-gray-300 bg-gray-100 p-2 ' required={true} onChange={handleMakeChange} value={data.make}>
                                 <option defaultValue=""></option>
                                 {makes.map((make: any) => {
                                     return (
@@ -131,11 +145,34 @@ function MotorInsuranceForm() {
                             </select>
                         </div>
                     </div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-2">
+                        <div className='grid'>
+                            <label htmlFor="color" className='flex gap-2'>Vehicle color <Required /></label>
+                            <input
+                                name='color'
+                                id='color'
+                                placeholder='Color'
+                                type="text"
+                                className='border border-gray-300 p-2 py-1'
+                                onChange={handleColorChange}
+                                required={true}
+                                maxLength={10} 
+                            />
+                        </div>
+                        <div className='grid'>
+                            <label htmlFor="vehicle_use" className='flex gap-1'>Vehicle use <Required /></label>
+                            <select name="vehicle_use" id="vehicle_use" className='border border-gray-300 p-2 bg-gray-100' required={true} onChange={handleVehicleUseChange} value={data.vehicle_use}>
+                                <option defaultValue=""></option>
+                                <option  value="private">Private</option>
+                                <option  value="commercial">Commercial</option>
+                            </select>
+                        </div>
+                    </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-2">
                         <div className='grid'>
-                            <label htmlFor="make_model" className='flex gap-1'>Model <Required /></label>
-                            <select name="make_model" id="make_model" className='border border-gray-300 p-2 bg-gray-100' required={true} onChange={handleMakeModelChange} value={data.model}>
+                            <label htmlFor="model" className='flex gap-1'>Model <Required /></label>
+                            <select name="model" id="model" className='border border-gray-300 p-2 bg-gray-100' required={true} onChange={handleModelChange} value={data.model}>
                                 <option defaultValue=""></option>
                                 {models.map((model: any) => {
                                     return (
@@ -146,10 +183,10 @@ function MotorInsuranceForm() {
                         </div>
                         <div className='grid'>
                             <label htmlFor="engine_capacity" className='flex gap-1'>Engine Capacity <Required /></label>
-                            <select name="engine_capacity" id="engine_capacity" className='border border-gray-300 p-2 bg-gray-100' required={true} onChange={handleEngineCapacityChange} value={data.model}>
+                            <select name="engine_capacity" id="engine_capacity" className='border border-gray-300 p-2 bg-gray-100' required={true} onChange={handleEngineCapacityChange} value={data.engine_capacity}>
                                 <option defaultValue=""></option>
                                 <option defaultValue="40000">40000</option>
-                                <option defaultValue="30000">40000</option>
+                                <option defaultValue="30000">30000</option>
                             </select>
                         </div>
                         <div className='grid'>
@@ -158,17 +195,17 @@ function MotorInsuranceForm() {
                                 name='engine_number'
                                 placeholder='Engine number'
                                 type="text"
-                                className='border border-gray-300 p-2'
+                                className='border border-gray-300 p-2 py-1'
                                 onChange={handleEngineNumberChange}
                                 required={true}
                                 maxLength={10} 
                             />
                         </div>
                         <div className='grid'>
-                            <label htmlFor="engine_chassis" className='flex gap-1'>Engine Chassis <Required /></label>
+                            <label htmlFor="chassis_number" className='flex gap-1'>Chassis Number <Required /></label>
                             <input
-                                name='engine_chassis'
-                                placeholder='Engine chassis'
+                                name='chassis_number'
+                                placeholder='Chassis number'
                                 type="text"
                                 className='border border-gray-300 p-2'
                                 onChange={handleEngineChassisChange}
@@ -176,6 +213,18 @@ function MotorInsuranceForm() {
                                 maxLength={10} 
                             />
                         </div>
+                    </div>
+                    <div className='grid'>
+                        <label htmlFor="cover_end" className='flex gap-1'>Cover end <Required /></label>
+                        <input
+                            name='cover_end'
+                            placeholder='Cover end'
+                            type="date"
+                            className='border border-gray-300 p-2 py-1'
+                            onChange={handleCoverEndChange}
+                            required={true}
+                            maxLength={10} 
+                        />
                     </div>
                     <button type="submit" disabled={isLoading} className={`text-white rounded-sm ${isLoading ? 'bg-gray-600 cursor-progress' : 'bg-blue-600'} p-2 w-full`}>Add Quotation</button>
                 </form>

@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import useClaims from 'src/hooks/Claims';
 import { textShortener } from 'src/lib/utils';
 import { IClaim } from 'src/interfaces/claim';
-import useUserClaims from 'src/hooks/UserClaims';
+import useUserClaims from 'src/hooks/clientClaims';
 import { ICustomClaim } from 'src/interfaces/user';
 import ClaimCreation from './Create';
 import MotorInsurance from '../motor/MotorInsurance';
@@ -22,7 +22,7 @@ function ClaimList() {
         navigate(path);
     }
 
-    const { userClaims } = useUserClaims();
+    const { clientClaims } = useUserClaims();
 
     return (
         <div className='pb-16'>
@@ -37,7 +37,7 @@ function ClaimList() {
                 </div>
             </div>
             <div className='mt-4 w-auto grid lg:grid-cols-2 md:grid-cols-2 gap-2'>
-                {userClaims.map((claim: ICustomClaim) => {
+                {clientClaims.map((claim: ICustomClaim) => {
                     return (
                         <div key={claim.id} className='border shadow-md p-2 text-[12pt]'>
                             <div className='flex justify-between'>

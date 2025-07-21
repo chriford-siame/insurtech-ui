@@ -4,11 +4,12 @@ import { useNavigate } from 'react-router-dom';
 import useClaims from 'src/hooks/Claims';
 import { textShortener } from 'src/lib/utils';
 import { IClaim } from 'src/interfaces/claim';
-import useUserClaims from 'src/hooks/UserClaims';
+import useUserClaims from 'src/hooks/clientClaims';
 import { ICustomClaim } from 'src/interfaces/user';
 import ClaimCreation from './Create';
 import MotorInsurance from '../motor/MotorInsurance';
 import MotorInsuranceForm from '../motor/Create';
+import useClientQuotations from 'src/hooks/clientQuotations';
 
 function QuotationList() {
     const navigate = useNavigate();
@@ -22,7 +23,7 @@ function QuotationList() {
         navigate(path);
     }
 
-    const { userClaims } = useUserClaims();
+    const { quotations } = useClientQuotations();
 
     return (
         <div className='pb-16'>
@@ -37,17 +38,17 @@ function QuotationList() {
                 </div>
             </div>
             <div className='mt-4 w-auto grid lg:grid-cols-2 md:grid-cols-2 gap-2'>
-                {userClaims.map((claim: ICustomClaim) => {
+                {quotations.map((quotation: any) => {
                     return (
-                        <div key={claim.id} className='border shadow-md p-2 text-[12pt]'>
+                        <div key={quotation.id} className='border shadow-md p-2 text-[12pt]'>
                             <div className='flex justify-between'>
-                                <p className='text-gray-700'>{claim.date_issued}</p>
-                                <p className='text-gray-700 font-semibold'>{claim.claim_type} insurance</p>
-                                <p className='text-gray-700'>{claim.status}</p>
+                                <p className='text-gray-700'>{quotation.first_name}</p>
+                                <p className='text-gray-700 font-semibold'>{quotation.last_name} insurance</p>
+                                <p className='text-gray-700'>{"quotation.status"}</p>
                             </div>
-                            <p className='text-gray-700'>{textShortener(claim.incident, 200)}</p>
+                            <p className='text-gray-700'>{textShortener(quotation.incident, 200)}</p>
                             <div className="flex justify-center pb-0">
-                                <a onClick={() => gotoQuotation(claim.id)} className="text-blue-400 text-[12pt] rounded-md  px-2 flex justify-center gap-1 cursor-pointer"><span><Eye size={15} className='mt-2' /> </span> <p>view claim</p></a>
+                                <a onClick={() => gotoQuotation(quotation.id)} className="text-blue-400 text-[12pt] rounded-md  px-2 flex justify-center gap-1 cursor-pointer"><span><Eye size={15} className='mt-2' /> </span> <p>view claim</p></a>
                             </div>
                         </div>
                     );
