@@ -10,7 +10,7 @@ import ClaimCreation from './Create';
 import MotorInsurance from '../motor/MotorInsurance';
 import MotorInsuranceForm from '../motor/Create';
 
-function InsuranceList() {
+function QuotationList() {
     const navigate = useNavigate();
     const gotoQuotationForm = () => {
         let path = `/quotation/create/`;
@@ -58,4 +58,4 @@ function InsuranceList() {
     )
 }
 
-export default InsuranceList
+export default QuotationList

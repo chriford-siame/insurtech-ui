@@ -13,7 +13,7 @@ const Signup = React.lazy(() => import('./pages/auth/Signup'));
 const RevieverPannel = React.lazy(() => import('./pages/reviewer/ReviewerPannel'));
 const ClaimReview = React.lazy(() => import('./pages/reviewer/Review'));
 const MotorInsuranceForm = React.lazy(() => import('./pages/motor/Create'));
-const MotorInsuranceList = React.lazy(() => import('./pages/motor/List'));
+const QuotationList = React.lazy(() => import('./pages/motor/List'));
 
 function App() {
   const { isAuthenticated } = useAuth();
@@ -56,7 +56,7 @@ function App() {
                   <React.Suspense fallback={
                     <CustomLoarder />
                   }>
-                    {isAuthenticated ? <MotorInsuranceList /> : <Navigate to="/login" />}
+                    {isAuthenticated ? <QuotationList /> : <Navigate to="/login" />}
                   </React.Suspense>
                 } />
               : null}
