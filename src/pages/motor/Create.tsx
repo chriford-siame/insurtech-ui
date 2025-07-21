@@ -3,6 +3,7 @@ import OpenAI from 'openai';
 import { IClaim } from 'src/interfaces/claim';
 import useMakeData from 'src/hooks/make';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 function MotorInsuranceForm() {
     const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -62,7 +63,23 @@ function MotorInsuranceForm() {
         form.append("engine_capacity", data.engine_capacity);
         form.append("engine_number", data.engine_number);
         form.append("engine_chassis", data.engine_chassis);
-        console.log(data)
+        
+        try {
+            await axios.post(
+                "http://localhost:8000/quotation/",
+                form,
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                        "Content-Type": "multipart/form-data",
+                    },
+                }
+            ).then((response) => console.log(response.data));
+            window.location.href = "/";
+        } catch (err) {
+            setIsLoading(false)
+            console.error(err);
+        }
         gotoQuotations()
 
     };
