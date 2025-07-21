@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import OpenAI from 'openai';
 import { IClaim } from 'src/interfaces/claim';
-import axios from 'axios';
 import useMakeData from 'src/hooks/make';
 import { useNavigate } from 'react-router-dom';
 
@@ -15,7 +14,6 @@ function MotorInsuranceForm() {
         engine_capacity: '',
         engine_number: '',
         engine_chassis: '',
-
     })
 
     const {makes, makeYears, models} = useMakeData();
@@ -44,8 +42,8 @@ function MotorInsuranceForm() {
     };
 
     const navigate = useNavigate();
-    const gotoClaims = () => {
-        let path = `/claims/`;
+    const gotoQuotations = () => {
+        let path = `/`;
         navigate(path);
     }
 
@@ -65,7 +63,7 @@ function MotorInsuranceForm() {
         form.append("engine_number", data.engine_number);
         form.append("engine_chassis", data.engine_chassis);
         console.log(data)
-        gotoClaims()
+        gotoQuotations()
 
     };
 
@@ -96,9 +94,10 @@ function MotorInsuranceForm() {
                         <div className='grid'>
                             <label htmlFor="make_year" className='flex gap-1'>Year <Required /></label>
                             <select name="make_year" id="make_year" className='border border-gray-300 p-2 bg-gray-100' required={true} onChange={handleMakeYearChange} value={data.make_year}>
+                                <option defaultValue=""></option>
                                 {makeYears.map((year: any) => {
                                     return (
-                                        <option key={year.id} value={year.id}>{year.name}</option>
+                                        <option key={year.id} value={year.id}>{year.year}</option>
                                     )
                                 })}
                             </select>
@@ -119,7 +118,8 @@ function MotorInsuranceForm() {
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-2">
                         <div className='grid'>
                             <label htmlFor="make_model" className='flex gap-1'>Model <Required /></label>
-                            <select name="make_year" id="make_model" className='border border-gray-300 p-2 bg-gray-100' required={true} onChange={handleMakeModelChange} value={data.model}>
+                            <select name="make_model" id="make_model" className='border border-gray-300 p-2 bg-gray-100' required={true} onChange={handleMakeModelChange} value={data.model}>
+                                <option defaultValue=""></option>
                                 {models.map((model: any) => {
                                     return (
                                         <option key={model.id} value={model.id}>{model.name}</option>
@@ -128,10 +128,11 @@ function MotorInsuranceForm() {
                             </select>
                         </div>
                         <div className='grid'>
-                            <label htmlFor="make_model" className='flex gap-1'>Engine Capacity <Required /></label>
-                            <select name="make_year" id="make_model" className='border border-gray-300 p-2 bg-gray-100' required={true} onChange={handleEngineCapacityChange} value={data.model}>
-                                <option defaultValue="motor">40000</option>
-                                <option value="other">B4</option>
+                            <label htmlFor="engine_capacity" className='flex gap-1'>Engine Capacity <Required /></label>
+                            <select name="engine_capacity" id="engine_capacity" className='border border-gray-300 p-2 bg-gray-100' required={true} onChange={handleEngineCapacityChange} value={data.model}>
+                                <option defaultValue=""></option>
+                                <option defaultValue="40000">40000</option>
+                                <option defaultValue="30000">40000</option>
                             </select>
                         </div>
                         <div className='grid'>
@@ -147,7 +148,7 @@ function MotorInsuranceForm() {
                             />
                         </div>
                         <div className='grid'>
-                            <label htmlFor="engine_chassin" className='flex gap-1'>Engine Chassis <Required /></label>
+                            <label htmlFor="engine_chassis" className='flex gap-1'>Engine Chassis <Required /></label>
                             <input
                                 name='engine_chassis'
                                 placeholder='Engine chassis'
