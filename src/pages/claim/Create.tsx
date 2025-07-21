@@ -69,7 +69,6 @@ function ClaimCreation() {
         for (let i = 0; i < files.length; i++) {
             form.append("files", files[i]);
         }
-          
         try {
             await axios.post(
                 "http://localhost:8000/claims/",
@@ -81,7 +80,7 @@ function ClaimCreation() {
                     },
                 }
             );
-            window.location.href = "/";
+            window.location.href = "/claims";
         } catch (err) {
             setIsLoading(false)
             console.error(err);
