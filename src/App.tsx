@@ -12,7 +12,8 @@ const Login = React.lazy(() => import('./pages/auth/Login'));
 const Signup = React.lazy(() => import('./pages/auth/Signup'));
 const RevieverPannel = React.lazy(() => import('./pages/reviewer/ReviewerPannel'));
 const ClaimReview = React.lazy(() => import('./pages/reviewer/Review'));
-const MotorInsurance = React.lazy(() => import('./pages/motor/MotorInsurance'));
+const MotorInsuranceForm = React.lazy(() => import('./pages/motor/Create'));
+const MotorInsuranceList = React.lazy(() => import('./pages/motor/List'));
 
 function App() {
   const { isAuthenticated } = useAuth();
@@ -24,7 +25,7 @@ function App() {
         <div className=" md:w-[75%] lg:md:w-[75%] xl:md:w-[75%] text-2xl">
           <BrowserRouter>
             <Routes>
-              <Route path="/" element={
+              <Route path="/claims" element={
                 <React.Suspense fallback={
                   <CustomLoarder />
                 }>
@@ -42,15 +43,24 @@ function App() {
               : null}
 
               { user && !user.is_superuser ?
-                <Route path="/insurance/motor/add" element={
+                <Route path="/quotation/create" element={
                   <React.Suspense fallback={
                     <CustomLoarder />
                   }>
-                    {isAuthenticated ? <MotorInsurance /> : <Navigate to="/login" />}
+                    {isAuthenticated ? <MotorInsuranceForm /> : <Navigate to="/login" />}
                   </React.Suspense>
                 } />
               : null}
-
+              { user && !user.is_superuser ?
+                <Route path="/" element={
+                  <React.Suspense fallback={
+                    <CustomLoarder />
+                  }>
+                    {isAuthenticated ? <MotorInsuranceList /> : <Navigate to="/login" />}
+                  </React.Suspense>
+                } />
+              : null}
+              
               { user && user.is_superuser ?
                 <Route path="/claim/:id/review" element={
                   <React.Suspense fallback={
