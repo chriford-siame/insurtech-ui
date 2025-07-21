@@ -9,9 +9,10 @@ function Navbar() {
 
       {isAuthenticated ? 
       <div className="flex gap-5">
-        <a href="/login" className='text-white rounded-md'>claims</a>
-        <a href="/login" className='text-white rounded-md'>quotaions</a>
-        <a href="/login" className='text-white rounded-md'>policies</a>
+        <a href="/claims" className='text-white rounded-md'>claims</a>
+        <a href="/" className='text-white rounded-md'>quotaions</a>
+        <a href="#" className='text-white rounded-md'>about us</a>
+        <a href="#" className='text-white rounded-md'>contact us</a>
       </div>
       : null}
 
