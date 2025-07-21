@@ -61,7 +61,7 @@ function ClaimCreation() {
         form.append("first_name", data.first_name);
         form.append("middle_name", data.middle_name);
         form.append("last_name", data.last_name);
-        form.append("claim_type", data.claim_type);
+        form.append("claim_type", 'motor');
         form.append("nrc", data.nrc);
         form.append("incident", data.incident);
         form.append("phone_number", data.phone_number);
@@ -151,20 +151,10 @@ function ClaimCreation() {
                         onChange={handlePhoneNumberChange}
                         required={true}
                     />
-                    <hr />
-                    <label htmlFor="claimType">Claim Type</label>
-                    <select name="claimType" id="claimType" className='border border-gray-300 p-2' onChange={handleClaimTypeChange} value={data.claim_type}>
-                        <option defaultValue="motor">Motor Insurance</option>
-                        <option value="medical">Medical Insurance</option>
-                        <option value="property">Property Insurance</option>
-                        <option value="life">Life Insurance</option>
-                        <option value="travel">Travel Insurance</option>
-                        <option value="agriculture">Agricultural Insurance</option>
-                        <option value="workmen">Workmen’s Compensation</option>
-                        <option value="other">Other</option>
-                    </select>
+                    <label htmlFor="files">Incident evidence</label>
                     <input
-                        className='border border-gray-300 p-2 cur'
+                        className='border border-gray-300 p-2 -mt-2 cur'
+                        id='files'
                         type="file"
                         name="files"
                         accept="image/*,application/pdf"
