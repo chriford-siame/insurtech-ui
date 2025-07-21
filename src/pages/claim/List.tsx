@@ -6,6 +6,9 @@ import { textShortener } from 'src/lib/utils';
 import { IClaim } from 'src/interfaces/claim';
 import useUserClaims from 'src/hooks/UserClaims';
 import { ICustomClaim } from 'src/interfaces/user';
+import ClaimCreation from './Create';
+import MotorInsurance from '../motor/MotorInsurance';
+import MotorInsuranceForm from '../motor/Create';
 
 function ClaimList() {
     const navigate = useNavigate();
@@ -29,7 +32,7 @@ function ClaimList() {
                         <p className="text-black-500 font-bold">My Claims</p>
                     </div>
                     <div>
-                        <button onClick={() => claimFormPath()} className="text-white text-[12pt] bg-green-500 rounded-md  px-2 flex justify-center"><span><Plus size={15} className='mt-2' /></span><p>Add claim</p></button>
+                        <button onClick={() => claimFormPath()} className="text-white text-[12pt] bg-green-500 rounded-md  px-2 flex justify-center"><span><Plus size={15} className='mt-2' /></span><p>Create</p></button>
                     </div>
                 </div>
             </div>
