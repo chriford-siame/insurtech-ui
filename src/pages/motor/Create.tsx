@@ -78,6 +78,9 @@ function MotorInsuranceForm() {
     return (
         <div className="flex justify-center">
             <div className="mt-3 md:w-[75%] lg:md:w-[75%] xl:md:w-[75%] text-2xl">
+                <div className="flex justify-center my-2 w-full">
+                    <p className="text-black-500 font-bold">Quotation Creation Form</p>
+                </div>
                 <form onSubmit={handleSubmit} className='grid container gap-2 text-[12pt]'>
                     <input
                         name='registration_mark'
