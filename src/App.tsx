@@ -12,6 +12,7 @@ const Login = React.lazy(() => import('./pages/auth/Login'));
 const Signup = React.lazy(() => import('./pages/auth/Signup'));
 const RevieverPannel = React.lazy(() => import('./pages/reviewer/ReviewerPannel'));
 const ClaimReview = React.lazy(() => import('./pages/reviewer/Review'));
+const MotorInsurance = React.lazy(() => import('./pages/motor/MotorInsurance'));
 
 function App() {
   const { isAuthenticated } = useAuth();
@@ -36,6 +37,16 @@ function App() {
                     <CustomLoarder />
                   }>
                     {isAuthenticated ? <ClaimCreation /> : <Navigate to="/login" />}
+                  </React.Suspense>
+                } />
+              : null}
+
+              { user && !user.is_superuser ?
+                <Route path="/insurance/motor/add" element={
+                  <React.Suspense fallback={
+                    <CustomLoarder />
+                  }>
+                    {isAuthenticated ? <MotorInsurance /> : <Navigate to="/login" />}
                   </React.Suspense>
                 } />
               : null}
