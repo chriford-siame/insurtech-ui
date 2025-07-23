@@ -20,10 +20,10 @@ function ReviewerPannel() {
         
         <div className="flex justify-between my-2 w-full">
           <div>
-            <p className="text-gray-600 font-bold">Admin Pannel</p>
+            <p className="text-gray-600 font-bold">Claims</p>
           </div>
           <div>
-
+            
           </div>
         </div>
       </div>
