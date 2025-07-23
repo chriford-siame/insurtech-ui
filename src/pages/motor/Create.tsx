@@ -9,7 +9,7 @@ import { IMotorInsurance } from 'src/interfaces/quotation';
 
 function MotorInsuranceForm() {
     const [isLoading, setIsLoading] = useState<boolean>(false);
-    const [data, setData] = useState<Omit<IMotorInsurance, 'id' | 'created_at'>>({
+    const [data, setData] = useState<Omit<IMotorInsurance, 'id' | 'created_at' | 'file'>>({
         registration_number: '',
         make_year: '',
         make: '',
@@ -19,7 +19,7 @@ function MotorInsuranceForm() {
         chassis_number: '',
         color: '',
         vehicle_use: '',
-        cover_end: '',
+        cover_end: ''
     })
 
     const {makes, makeYears, models} = useMakeData();
@@ -69,6 +69,9 @@ function MotorInsuranceForm() {
         const token = localStorage.getItem('access_token');
 
         const form = new FormData();
+        
+        const fileResponse = await fetch('../../../public/sample/quotation.pdf');
+        const blob = await fileResponse.blob();
 
         form.append("registration_number", data.registration_number);
         form.append("model", data.model);
@@ -78,6 +81,7 @@ function MotorInsuranceForm() {
         form.append("color", data.color);
         form.append("vehicle_use", data.vehicle_use);
         form.append("cover_end", data.cover_end);
+        form.append("file", blob, "quotation.pdf")
 
         try {
             await axios.post(

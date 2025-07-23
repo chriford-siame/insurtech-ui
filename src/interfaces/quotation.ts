@@ -15,4 +15,5 @@ export interface IMotorInsurance {
     created_at: string
     insured_price?: string
     has_paid?: boolean
+    file: File | null
 }

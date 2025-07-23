@@ -42,6 +42,7 @@ const useClientQuotations = () => {
         );
         setClientQuotations(response.data);
       } catch (err) {
+        console.log(err)
         setError("Failed to fetch all client quotations.");
       } finally {
         setLoading(false);
