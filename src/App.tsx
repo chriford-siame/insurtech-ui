@@ -14,6 +14,8 @@ const RevieverPannel = React.lazy(() => import('./pages/reviewer/ReviewerPannel'
 const ClaimReview = React.lazy(() => import('./pages/reviewer/Review'));
 const MotorInsuranceForm = React.lazy(() => import('./pages/motor/Create'));
 const QuotationList = React.lazy(() => import('./pages/motor/List'));
+const QuotationListPannel = React.lazy(() => import('./pages/reviewer/QuotationListPannel'));
+const QuotationDetail = React.lazy(() => import('./pages/motor/View'));
 
 function App() {
   const { isAuthenticated } = useAuth();
@@ -42,21 +44,31 @@ function App() {
                 } />
               : null}
 
-              { user && !user.is_superuser ?
-                <Route path="/quotation/create" element={
-                  <React.Suspense fallback={
-                    <CustomLoarder />
-                  }>
-                    {isAuthenticated ? <MotorInsuranceForm /> : <Navigate to="/login" />}
-                  </React.Suspense>
-                } />
-              : null}
-              { user && !user.is_superuser ?
+              {/* { user && !user.is_superuser ?
                 <Route path="/" element={
                   <React.Suspense fallback={
                     <CustomLoarder />
                   }>
-                    {isAuthenticated ? <QuotationList /> : <Navigate to="/login" />}
+                  </React.Suspense>
+                } />
+                : null} */}
+              { user ?
+
+                <Route path="/" element={
+                  <React.Suspense fallback={
+                    <CustomLoarder />
+                  }>
+                    {isAuthenticated ? user && !user.is_superuser ? <QuotationList />: <QuotationListPannel /> : <Navigate to="/login" />}
+                  </React.Suspense>
+                } />
+              : null}
+
+              { user && user.is_superuser ?
+                <Route path="/quotation/:id/detail" element={
+                  <React.Suspense fallback={
+                    <CustomLoarder />
+                  }>
+                    {isAuthenticated ? <QuotationDetail /> : <Navigate to="/login" />}
                   </React.Suspense>
                 } />
               : null}
