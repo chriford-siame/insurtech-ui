@@ -40,24 +40,67 @@ function QuotationView() {
                     </div>
                     <div className='flex justify-between'>
                         <div className='text-gray-400 font-semibold text-[10pt] -mt-2'>contact</div>
-                        <div className='text-gray-400 font-semibold text-[10pt] -mt-2'>{'fill'}</div>
+                        <div className='text-gray-400 font-semibold text-[10pt] -mt-2'>0974567890</div>
                     </div>
                 </div>
                 <div className='border rounded-md p-3'>
                     <div className='flex justify-between'>
-                        <div className='text-gray-400 font-semibold text-[10pt] -mt-2'>ID</div>
-                        <div className='text-gray-400 font-semibold text-[10pt] -mt-2'>{quotation?.id}</div>
+                        <div className='text-gray-400 font-semibold text-[10pt] -mt-2'>Vehicle Use</div>
+                        <div className='text-gray-400 font-semibold text-[10pt] -mt-2'>{quotation?.vehicle_use}</div>
                     </div>
                     <div className='flex justify-between'>
-                        <div className='text-gray-400 font-semibold text-[10pt] -mt-2'>status</div>
-                        <div className='text-gray-400 font-semibold text-[10pt] -mt-2'>{quotation?.status == 'reviewed' ? 'Under review' : quotation?.status}</div>
+                        <div className='text-gray-400 font-semibold text-[10pt] -mt-2'>Payment</div>
+                        <div className='text-gray-400 font-semibold text-[10pt] -mt-2'>{quotation?.has_paid ? "Pending" : "Successful" }</div>
                     </div>
                     <div className='flex justify-between'>
-                        <div className='text-gray-400 font-semibold text-[10pt] -mt-2'>NRC</div>
-                        <div className='text-gray-400 font-semibold text-[10pt] -mt-2'>{'NRC'}</div>
+                        <div className='text-gray-400 font-semibold text-[10pt] -mt-2'>Method</div>
+                        <div className='text-gray-400 font-semibold text-[10pt] -mt-2'>Bank</div>
                     </div>
                 </div>
             </div>
+
+
+            <div className='border rounded-md p-3 my-3 px-4 grid md:grid-cols-3 lg:grid-cols-3'>
+               
+                <div className='flex justify-center'>
+                    <div className='text-center'>
+                        <p className='text-gray-500 font-semibold text-[12pt]'>Color</p>
+                        <p className='text-gray-400 font-semibold text-[10pt] -mt-2'>{quotation?.color}</p>
+                    </div>
+                </div>
+                <div className='flex justify-center'>
+                    <div className='text-center'>
+                        <p className='text-gray-500 font-semibold text-[12pt]'>Make</p>
+                        <p className='text-gray-400 font-semibold text-[10pt] -mt-2'>{quotation?.model.make.year.year} {quotation?.model.make.name}</p>
+                    </div>
+                </div>
+                <div className='flex justify-center'>
+                    <div className='text-center'>
+                        <p className='text-gray-500 font-semibold text-[12pt]'>Model</p>
+                        <p className='text-gray-400 font-semibold text-[10pt] -mt-2'>{quotation?.model.name}</p>
+                    </div>
+                </div>
+            </div> 
+            <div className='border rounded-md p-3 my-3 px-4 grid md:grid-cols-3 lg:grid-cols-3'>
+                <div className='flex justify-center'>
+                    <div className='text-center'>
+                        <p className='text-gray-500 font-semibold text-[12pt]'>Engine Capacity</p>
+                        <p className='text-gray-400 font-semibold text-[10pt] -mt-2'>{quotation?.engine_capacity}</p>
+                    </div>
+                </div>
+                <div className='flex justify-center'>
+                    <div className='text-center'>
+                        <p className='text-gray-500 font-semibold text-[12pt]'>Engine Number</p>
+                        <p className='text-gray-400 font-semibold text-[10pt] -mt-2'>{quotation?.engine_number}</p>
+                    </div>
+                </div>
+                <div className='flex justify-center'>
+                    <div className='text-center'>
+                        <p className='text-gray-500 font-semibold text-[12pt]'>Chassis Number</p>
+                        <p className='text-gray-400 font-semibold text-[10pt] -mt-2'>{quotation?.chassis_number}</p>
+                    </div>
+                </div>
+            </div> 
         </div>
     )
 }

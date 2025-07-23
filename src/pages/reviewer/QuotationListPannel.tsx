@@ -42,7 +42,7 @@ function QuotationDetail() {
               </div>
               <div className='flex justify-between'>
                   <p className='text-gray-700'>Make:</p>
-                  <p className='text-gray-700'>{JSON.stringify(quotation.model)}</p>
+                  <p className='text-gray-700'>{quotation.model.make.name}</p>
               </div>
               <div className='flex justify-between'>
                   <p className='text-gray-700'>Color:</p>
