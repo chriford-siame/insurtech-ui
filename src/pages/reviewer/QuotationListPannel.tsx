@@ -1,3 +1,4 @@
+import { Eye } from 'lucide-react';
 import React from 'react'
 import { useNavigate } from 'react-router-dom';
 import useClientQuotations from 'src/hooks/clientQuotations';
@@ -6,7 +7,7 @@ import { IMotorInsurance } from 'src/interfaces/quotation';
 function QuotationDetail() {
   const navigate = useNavigate();
 
-  const gotoQuotationDetail = (id: any) => {
+  const gotoQuotation = (id: any) => {
     let path = `/quotation/${id}/detail`;
     navigate(path);
   }
@@ -31,13 +32,31 @@ function QuotationDetail() {
           return (
             <div key={quotation.id} className='border shadow-md p-2 text-[12pt]'>
               <div className='flex justify-between'>
-                <p className='text-gray-700'>{quotation.created_at}</p>
-                <p className='text-gray-700'>{quotation.id}</p>
-              </div>ss
-              <div className="flex justify-center">
-                <a onClick={() => gotoQuotationDetail(quotation.id)} className="text-blue-400 text-[12pt] rounded-md  px-2 flex justify-center gap-1 cursor-pointer"><span> </span> <p>view claim</p></a>
+                  <p className='text-gray-700'>{quotation.created_at}</p>
+                  <p className='text-gray-700'>{quotation.status}</p>
               </div>
-            </div>
+              <hr />
+              <div className='flex justify-between'>
+                  <p className='text-gray-700'>Sum insured:</p>
+                  <p className='text-gray-700'>K{quotation.insured_price ? quotation.insured_price : "0"}</p>
+              </div>
+              <div className='flex justify-between'>
+                  <p className='text-gray-700'>Make:</p>
+                  <p className='text-gray-700'>{JSON.stringify(quotation.model)}</p>
+              </div>
+              <div className='flex justify-between'>
+                  <p className='text-gray-700'>Color:</p>
+                  <p className='text-gray-700'>{quotation.color}</p>
+              </div>
+              <div className='flex justify-between'>
+                  <p className='text-gray-700'>Plate Number:</p>
+                  <p className='text-gray-700'>{quotation.registration_number}</p>
+              </div>
+              <hr />
+              <div className="flex justify-center pb-0">
+                  <a onClick={() => gotoQuotation(quotation.id)} className="text-blue-400 text-[12pt] rounded-md  px-2 flex justify-center gap-1 cursor-pointer"><span><Eye size={15} className='mt-2' /> </span> <p>view {quotation.has_paid ? "policy" : "quotation"}</p></a>
+              </div>
+          </div>
           );
         })
         }

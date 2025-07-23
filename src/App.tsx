@@ -44,25 +44,26 @@ function App() {
                 } />
               : null}
 
-              {/* { user && !user.is_superuser ?
-                <Route path="/" element={
+              { user && !user.is_superuser ?
+                <Route path="/quotation/create" element={
                   <React.Suspense fallback={
                     <CustomLoarder />
                   }>
-                  </React.Suspense>
-                } />
-                : null} */}
-              { user ?
-
-                <Route path="/" element={
-                  <React.Suspense fallback={
-                    <CustomLoarder />
-                  }>
-                    {isAuthenticated ? user && !user.is_superuser ? <QuotationList />: <QuotationListPannel /> : <Navigate to="/login" />}
+                    {isAuthenticated ? <MotorInsuranceForm /> : <Navigate to="/login" />}
                   </React.Suspense>
                 } />
               : null}
 
+              { user ?
+                <Route path="/" element={
+                  <React.Suspense fallback={
+                    <CustomLoarder />
+                  }>
+                    {isAuthenticated ? user && !user.is_superuser ? <QuotationList /> : <QuotationListPannel /> : <Navigate to="/login" />}
+                  </React.Suspense>
+                } />
+              : null
+              }
               { user && user.is_superuser ?
                 <Route path="/quotation/:id/detail" element={
                   <React.Suspense fallback={

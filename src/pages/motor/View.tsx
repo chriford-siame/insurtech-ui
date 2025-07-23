@@ -22,9 +22,8 @@ function QuotationView() {
                     </div>
                 </div>
                 <div className='flex justify-end'>
-                    <div className='text-center'>
-                        <p className='text-gray-500 font-semibold text-[12pt]'>Attachments</p>
-                        <p className='text-gray-400 font-semibold text-[10pt] -mt-2'>1</p>
+                    <div className='text-center pt-1'>
+                        <img className="cursor-pointer" onClick={() => window.open('/sample/quotation.pdf', '_blank')} src="/quotation.jpg" width={40} alt="" />
                     </div>
                 </div>
             </div>

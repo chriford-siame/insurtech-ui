@@ -81,7 +81,7 @@ function MotorInsuranceForm() {
         form.append("color", data.color);
         form.append("vehicle_use", data.vehicle_use);
         form.append("cover_end", data.cover_end);
-        form.append("file", blob, "quotation.pdf")
+        form.append("quotation", blob, "quotation.pdf")
 
         try {
             await axios.post(
@@ -90,7 +90,7 @@ function MotorInsuranceForm() {
                 {
                     headers: {
                         Authorization: `Bearer ${token}`,
-                        "Content-Type": "application/json",
+                        "Content-Type": "multipart/form-data",
                     },
                 }
             );

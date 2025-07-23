@@ -4,7 +4,7 @@ export interface IMotorInsurance {
     registration_number: string
     make_year: string
     make: string
-    model: string
+    model: any
     engine_capacity: string
     engine_number: string
     chassis_number: string

@@ -41,7 +41,7 @@ function QuotationList() {
                             <hr />
                             <div className='flex justify-between'>
                                 <p className='text-gray-700'>Sum insured:</p>
-                                <p className='text-gray-700'>{quotation.registration_number}</p>
+                                <p className='text-gray-700'>K{quotation.insured_price ? quotation.insured_price : "0"}</p>
                             </div>
                             <div className='flex justify-between'>
                                 <p className='text-gray-700'>Make:</p>
