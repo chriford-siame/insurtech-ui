@@ -8,7 +8,7 @@ function QuotationView() {
 
     return (
         <div className='pt-5 text-black'>
-            <div className='border rounded-md p-3 my-3 px-4 grid md:grid-cols-3 lg:grid-cols-3'>
+            <div className='border rounded-md p-3 my-3 px-4 grid md:grid-cols-4 lg:grid-cols-4'>
                 <div className='flex justify-start '>
                     <div className='text-center'>
                         <p className='text-gray-500 font-semibold text-[12pt]'>Insurance</p>
@@ -19,6 +19,12 @@ function QuotationView() {
                     <div className='text-center'>
                         <p className='text-gray-500 font-semibold text-[12pt]'>Date Issued</p>
                         <p className='text-gray-400 font-semibold text-[10pt] -mt-2'>{quotation?.created_at}</p>
+                    </div>
+                </div>
+                <div className='flex justify-center'>
+                    <div className='text-center'>
+                        <p className='text-gray-500 font-semibold text-[12pt]'>Cover End</p>
+                        <p className='text-gray-400 font-semibold text-[10pt] -mt-2'>{quotation?.cover_end}</p>
                     </div>
                 </div>
                 <div className='flex justify-end'>
