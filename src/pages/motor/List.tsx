@@ -45,18 +45,15 @@ function QuotationList() {
                             </div>
                             <div className='flex justify-between'>
                                 <p className='text-gray-700'>Make:</p>
-                                <p className='text-gray-700'>{quotation.registration_number}</p>
+                                <p className='text-gray-700'>{quotation.model.make.name}</p>
                             </div>
                             <div className='flex justify-between'>
-                                <p className='text-gray-700'>Year:</p>
-                                <p className='text-gray-700'>{quotation.insured_price}</p>
-                                <p className='text-gray-700'>{quotation.insured_price}</p>
+                                <p className='text-gray-700'>Color:</p>
+                                <p className='text-gray-700'>{quotation.color}</p>
                             </div>
-                            {/* <div className='flex justify-between'>
-                            </div> */}
                             <div className='flex justify-between'>
+                                <p className='text-gray-700'>Plate Number:</p>
                                 <p className='text-gray-700'>{quotation.registration_number}</p>
-                                <p className='text-gray-700'>{quotation.insured_price}</p>
                             </div>
                             <hr />
                             <div className="flex justify-center pb-0">

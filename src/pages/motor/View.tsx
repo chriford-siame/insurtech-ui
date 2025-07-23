@@ -8,7 +8,7 @@ function QuotationView() {
 
     return (
         <div className='pt-5 text-black'>
-            <div className='border rounded-md p-3 my-3 px-4 grid md:grid-cols-4 lg:grid-cols-4'>
+            <div className='border rounded-md p-3 my-3 px-4 grid md:grid-cols-3 lg:grid-cols-3'>
                 <div className='flex justify-start '>
                     <div className='text-center'>
                         <p className='text-gray-500 font-semibold text-[12pt]'>Insurance</p>
@@ -19,12 +19,6 @@ function QuotationView() {
                     <div className='text-center'>
                         <p className='text-gray-500 font-semibold text-[12pt]'>Date Issued</p>
                         <p className='text-gray-400 font-semibold text-[10pt] -mt-2'>{quotation?.created_at}</p>
-                    </div>
-                </div>
-                <div className='flex justify-center'>
-                    <div className='text-center'>
-                        <p className='text-gray-500 font-semibold text-[12pt]'>Cover End</p>
-                        <p className='text-gray-400 font-semibold text-[10pt] -mt-2'>{quotation?.cover_end}</p>
                     </div>
                 </div>
                 <div className='flex justify-end'>
@@ -51,16 +45,16 @@ function QuotationView() {
                 </div>
                 <div className='border rounded-md p-3'>
                     <div className='flex justify-between'>
-                        <div className='text-gray-400 font-semibold text-[10pt] -mt-2'>Vehicle Use</div>
-                        <div className='text-gray-400 font-semibold text-[10pt] -mt-2'>{quotation?.vehicle_use}</div>
-                    </div>
-                    <div className='flex justify-between'>
                         <div className='text-gray-400 font-semibold text-[10pt] -mt-2'>Payment</div>
-                        <div className='text-gray-400 font-semibold text-[10pt] -mt-2'>{quotation?.has_paid ? "Pending" : "Successful" }</div>
+                        <div className='text-gray-400 font-semibold text-[10pt] -mt-2'>{quotation?.has_paid ? "Successful" : "Pending" }</div>
                     </div>
                     <div className='flex justify-between'>
                         <div className='text-gray-400 font-semibold text-[10pt] -mt-2'>Method</div>
                         <div className='text-gray-400 font-semibold text-[10pt] -mt-2'>Bank</div>
+                    </div>
+                    <div className='flex justify-between'>
+                        <div className='text-gray-400 font-semibold text-[10pt] -mt-2'>Date</div>
+                        <div className='text-gray-400 font-semibold text-[10pt] -mt-2'>{quotation?.has_paid ? quotation?.created_at : "-"}</div>
                     </div>
                 </div>
             </div>
@@ -106,7 +100,31 @@ function QuotationView() {
                         <p className='text-gray-400 font-semibold text-[10pt] -mt-2'>{quotation?.chassis_number}</p>
                     </div>
                 </div>
+            </div>
+            <div className='border rounded-md p-3 my-3 px-4 grid md:grid-cols-3 lg:grid-cols-3'>
+                <div className='flex justify-center'>
+                    <div className='text-center'>
+                        <p className='text-gray-500 font-semibold text-[12pt]'>Plate Number</p>
+                        <p className='text-gray-400 font-semibold text-[10pt] -mt-2'>{quotation?.registration_number}</p>
+                    </div>
+                </div>
+                <div className='flex justify-center'>
+                    <div className='text-center'>
+                        <p className='text-gray-500 font-semibold text-[12pt]'>Vehicle Use</p>
+                        <p className='text-gray-400 font-semibold text-[10pt] -mt-2'>{quotation?.vehicle_use}</p>
+                    </div>
+                </div>
+                <div className='flex justify-center'>
+                    <div className='text-center'>
+                        <p className='text-gray-500 font-semibold text-[12pt]'>Cover End</p>
+                        <p className='text-gray-400 font-semibold text-[10pt] -mt-2'>{quotation?.cover_end}</p>
+                    </div>
+                </div>
             </div> 
+                <div className='flex justify-between w-full px-3 border p-3 rounded-md'>
+                    <div className='text-gray-500 font-semibold text-[14pt] -mt-2'>Sum Insured</div>
+                    <div className='text-gray-500 font-semibold text-[14pt] -mt-2'>K{quotation?.has_paid ? quotation?.insured_price : "10,000.00"}</div>
+                </div>
         </div>
     )
 }
