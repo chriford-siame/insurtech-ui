@@ -61,8 +61,8 @@ function App() {
                   {isAuthenticated ? user && !user.is_superuser ? <QuotationList /> : <QuotationListPannel /> : <Navigate to="/login" />}
                 </React.Suspense>
               } />
-              
-              { user && user.is_superuser ?
+
+              { user ?
                 <Route path="/quotation/:id/detail" element={
                   <React.Suspense fallback={
                     <CustomLoarder />
