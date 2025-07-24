@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import useClientQuotations from 'src/hooks/clientQuotations';
 import { IMotorInsurance } from 'src/interfaces/quotation';
 import Card from 'src/components/quotation/Card';
+import { spawn } from 'child_process';
 
 function QuotationList() {
     const navigate = useNavigate();
@@ -34,7 +35,9 @@ function QuotationList() {
             <div className='mt-4 w-auto grid lg:grid-cols-2 md:grid-cols-2 gap-2'>
                 {clientQuotations.map((quotation: IMotorInsurance) => {
                     return (
-                        <Card quotation={quotation} />
+                        <span key={quotation.id}>
+                            <Card quotation={quotation} />
+                        </span>
                     );
                 })
                 }

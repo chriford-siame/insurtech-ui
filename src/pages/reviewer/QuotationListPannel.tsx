@@ -25,7 +25,9 @@ function QuotationDetail() {
       <div className='mt-4 w-auto grid lg:grid-cols-2 md:grid-cols-2 gap-2'>
         {quotations.map((quotation: IMotorInsurance) => {
           return (
-           <Card quotation={quotation} />
+            <span key={quotation.id}>
+              <Card quotation={quotation} />
+            </span>
           );
         })
         }

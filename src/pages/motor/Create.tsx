@@ -70,7 +70,7 @@ function MotorInsuranceForm() {
 
         const form = new FormData();
         
-        const fileResponse = await fetch('../../../public/sample/quotation.pdf');
+        const fileResponse = await fetch('/sample/quotation.pdf');
         const blob = await fileResponse.blob();
 
         form.append("registration_number", data.registration_number);
@@ -81,7 +81,7 @@ function MotorInsuranceForm() {
         form.append("color", data.color);
         form.append("vehicle_use", data.vehicle_use);
         form.append("cover_end", data.cover_end);
-        form.append("quotation", blob, "quotation.pdf")
+        // form.append("quotation", blob, "quotation.pdf")
 
         try {
             await axios.post(
