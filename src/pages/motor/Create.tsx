@@ -9,7 +9,7 @@ import { IMotorInsurance } from 'src/interfaces/quotation';
 
 function MotorInsuranceForm() {
     const [isLoading, setIsLoading] = useState<boolean>(false);
-    const [data, setData] = useState<Omit<IMotorInsurance, 'id' | 'created_at' | 'file'>>({
+    const [data, setData] = useState<Omit<IMotorInsurance, 'id' | 'created_at' | 'file' | 'model_info'>>({
         registration_number: '',
         make_year: '',
         make: '',
@@ -81,7 +81,8 @@ function MotorInsuranceForm() {
         form.append("color", data.color);
         form.append("vehicle_use", data.vehicle_use);
         form.append("cover_end", data.cover_end);
-        // form.append("quotation", blob, "quotation.pdf")
+        form.append("quotation", blob, "quotation.pdf")
+        console.log(data)
 
         try {
             await axios.post(
@@ -90,7 +91,7 @@ function MotorInsuranceForm() {
                 {
                     headers: {
                         Authorization: `Bearer ${token}`,
-                        "Content-Type": "application/json",
+                        // "Content-Type": "application/json",
                     },
                 }
             );

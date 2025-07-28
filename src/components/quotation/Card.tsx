@@ -27,7 +27,7 @@ function Card({ quotation }: IProps) {
         </div>
         <div className='flex justify-between'>
             <p className='text-gray-700'>Make:</p>
-            <p className='text-gray-700'>{quotation.model.make.name}</p>
+            <p className='text-gray-700'>{quotation.model_info.make.name}</p>
         </div>
         <div className='flex justify-between'>
             <p className='text-gray-700'>Color:</p>

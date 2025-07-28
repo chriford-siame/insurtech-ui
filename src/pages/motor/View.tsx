@@ -71,13 +71,13 @@ function QuotationView() {
                 <div className='flex justify-center'>
                     <div className='text-center'>
                         <p className='text-gray-500 font-semibold text-[12pt]'>Make</p>
-                        <p className='text-gray-400 font-semibold text-[10pt] -mt-2'>{quotation?.model.make.year.year} {quotation?.model.make.name}</p>
+                        <p className='text-gray-400 font-semibold text-[10pt] -mt-2'>{quotation?.model_info.make.year.year} {quotation?.model_info.make.name}</p>
                     </div>
                 </div>
                 <div className='flex justify-center'>
                     <div className='text-center'>
                         <p className='text-gray-500 font-semibold text-[12pt]'>Model</p>
-                        <p className='text-gray-400 font-semibold text-[10pt] -mt-2'>{quotation?.model.name}</p>
+                        <p className='text-gray-400 font-semibold text-[10pt] -mt-2'>{quotation?.model_info.name}</p>
                     </div>
                 </div>
             </div> 
