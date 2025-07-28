@@ -1,3 +1,19 @@
+export interface IYear {
+    id: number
+    year: string
+}
+export interface IMake {
+    id: number
+    year: IYear
+    name: string
+
+} 
+export interface IModelInfo {
+    id: number
+    make: IMake
+    name: string
+}
+
 export interface IMotorInsurance {
     id: number
     user?: any
@@ -5,6 +21,7 @@ export interface IMotorInsurance {
     make_year: string
     make: string
     model: any
+    model_info: IModelInfo
     engine_capacity: string
     engine_number: string
     chassis_number: string
