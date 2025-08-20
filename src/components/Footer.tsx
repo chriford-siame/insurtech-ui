@@ -3,7 +3,7 @@ import { Facebook, Twitter, Linkedin, Mail } from "lucide-react";
 
 export default function Footer() {
   return (
-    <footer className="bg-blue-700 text-white py-12 px-6">
+    <footer className="bg-gray-600 text-white py-12 px-6">
       <div className="max-w-7xl mx-auto grid md:grid-cols-4 gap-8">
         {/* Company Info */}
         <div>
@@ -84,7 +84,7 @@ export default function Footer() {
       </div>
 
       {/* Bottom Bar */}
-      <div className="mt-12 border-t border-blue-600 pt-6 text-center text-gray-300 text-sm">
+      <div className="mt-12 border-t border-white pt-6 text-center text-gray-300 text-sm">
         &copy; {new Date().getFullYear()} iTech Quotes. All rights reserved.
       </div>
     </footer>

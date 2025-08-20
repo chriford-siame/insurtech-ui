@@ -11,7 +11,7 @@ function Navbar() {
   return (
     <nav className="bg-blue-600 shadow-md">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between h-16 items-center">
+        <div className="flex justify-between h-12 items-center">
           {/* Logo */}
           <a
             href="/"
@@ -23,7 +23,7 @@ function Navbar() {
           </a>
 
           {/* Desktop Menu */}
-          <div className="hidden md:flex md:items-center md:space-x-6">
+          <div className="hidden md:flex md:items-center sm:items-center md:space-x-6">
             {isAuthenticated ? (
               <>
                 <a
@@ -33,7 +33,7 @@ function Navbar() {
                   Claims
                 </a>
                 <a
-                  href="/quotations"
+                  href="/"
                   className="text-white hover:text-orange-200 transition"
                 >
                   Quotations
