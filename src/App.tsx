@@ -4,6 +4,7 @@ import CustomLoarder from './components/Loarder';
 import Navbar from './components/Navbar';
 import { useAuth } from './hooks/useAuth';
 import useUser from './hooks/User';
+import Footer from './components/Footer';
 
 const ClaimCreation = React.lazy(() => import('./pages/claim/Create'));
 const ClaimView = React.lazy(() => import('./pages/claim/View'));
@@ -16,6 +17,7 @@ const MotorInsuranceForm = React.lazy(() => import('./pages/motor/Create'));
 const QuotationList = React.lazy(() => import('./pages/motor/List'));
 const QuotationListPannel = React.lazy(() => import('./pages/reviewer/QuotationListPannel'));
 const QuotationDetail = React.lazy(() => import('./pages/motor/View'));
+const LandingPage = React.lazy(() => import('./pages/motor/LandingPage'));
 
 function App() {
   const { isAuthenticated } = useAuth();
@@ -58,7 +60,7 @@ function App() {
                 <React.Suspense fallback={
                   <CustomLoarder />
                 }>
-                  {isAuthenticated ? user && !user.is_superuser ? <QuotationList /> : <QuotationListPannel /> : <Navigate to="/login" />}
+                  {isAuthenticated ? user && !user.is_superuser ? <QuotationList /> : <QuotationListPannel /> : <LandingPage />}
                 </React.Suspense>
               } />
 
@@ -109,6 +111,7 @@ function App() {
           </BrowserRouter>
         </div>
       </div>
+      <Footer />
     </div>
   );
 }
