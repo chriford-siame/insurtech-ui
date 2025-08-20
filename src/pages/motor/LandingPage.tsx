@@ -97,7 +97,7 @@ export default function LandingPage() {
       </section>
 
       {/* Trust Section */}
-      <section className="py-20 px-6 max-w-5xl mx-auto text-center bg-blue-50">
+      <section className="py-20 px-6 max-w-5xl mx-auto text-center ">
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}

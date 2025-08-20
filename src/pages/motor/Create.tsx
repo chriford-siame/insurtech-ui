@@ -117,7 +117,7 @@ function MotorInsuranceForm() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6 }}
-                className="w-full  bg-white rounded-2xl shadow-lg p-8"
+                className="w-full  bg-white rounded-xl shadow-lg p-8"
             >
                 {/* Title */}
                 <h2 className="text-xl md:text-2xl font-bold text-center mb-6 text-black">
@@ -130,7 +130,7 @@ function MotorInsuranceForm() {
                         name="registration_number"
                         placeholder="Vehicle registration number"
                         type="text"
-                        className="border border-gray-300 rounded-lg p-2 py-1 focus:ring-2 focus:ring-blue-500 focus:outline-none text-[11pt]"
+                        className="border border-gray-300 rounded-md p-2 py-1 focus:ring-2 focus:ring-blue-500 focus:outline-none text-[11pt]"
                         onChange={handleRegistrationMarkChange}
                         required
                         maxLength={10}
@@ -143,7 +143,7 @@ function MotorInsuranceForm() {
                             <select
                                 name="make_year"
                                 id="make_year"
-                                className="border border-gray-300 p-2 rounded-lg bg-gray-100 focus:ring-2 focus:ring-blue-500 focus:outline-none text-[11pt]"
+                                className="border border-gray-300 p-2 rounded-md bg-gray-100 focus:ring-2 focus:ring-blue-500 focus:outline-none text-[11pt]"
                                 required
                                 onChange={handleMakeYearChange}
                                 value={data.make_year}
@@ -159,7 +159,7 @@ function MotorInsuranceForm() {
                             <select
                                 name="make"
                                 id="make"
-                                className="border border-gray-300 p-2 rounded-lg bg-gray-100 focus:ring-2 focus:ring-blue-500 focus:outline-none text-[11pt]"
+                                className="border border-gray-300 p-2 rounded-md bg-gray-100 focus:ring-2 focus:ring-blue-500 focus:outline-none text-[11pt]"
                                 required
                                 onChange={handleMakeChange}
                                 value={data.make}
@@ -181,7 +181,7 @@ function MotorInsuranceForm() {
                                 id="color"
                                 placeholder="Color"
                                 type="text"
-                                className="border border-gray-300 p-2 py-1 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none text-[11pt]"
+                                className="border border-gray-300 p-2 py-1 rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none text-[11pt]"
                                 onChange={handleColorChange}
                                 required
                                 maxLength={10}
@@ -192,7 +192,7 @@ function MotorInsuranceForm() {
                             <select
                                 name="vehicle_use"
                                 id="vehicle_use"
-                                className="border border-gray-300 p-2 rounded-lg bg-gray-100 focus:ring-2 focus:ring-blue-500 focus:outline-none text-[11pt]"
+                                className="border border-gray-300 p-2 rounded-md bg-gray-100 focus:ring-2 focus:ring-blue-500 focus:outline-none text-[11pt]"
                                 required
                                 onChange={handleVehicleUseChange}
                                 value={data.vehicle_use}
@@ -211,7 +211,7 @@ function MotorInsuranceForm() {
                             <select
                                 name="model"
                                 id="model"
-                                className="border border-gray-300 p-2 rounded-lg bg-gray-100 focus:ring-2 focus:ring-blue-500 focus:outline-none text-[11pt]"
+                                className="border border-gray-300 p-2 rounded-md bg-gray-100 focus:ring-2 focus:ring-blue-500 focus:outline-none text-[11pt]"
                                 required
                                 onChange={handleModelChange}
                                 value={data.model}
@@ -227,7 +227,7 @@ function MotorInsuranceForm() {
                             <select
                                 name="engine_capacity"
                                 id="engine_capacity"
-                                className="border border-gray-300 p-2 rounded-lg bg-gray-100 focus:ring-2 focus:ring-blue-500 focus:outline-none text-[11pt]"
+                                className="border border-gray-300 p-2 rounded-md bg-gray-100 focus:ring-2 focus:ring-blue-500 focus:outline-none text-[11pt]"
                                 required
                                 onChange={handleEngineCapacityChange}
                                 value={data.engine_capacity}
@@ -247,7 +247,7 @@ function MotorInsuranceForm() {
                                 name="engine_number"
                                 placeholder="Engine number"
                                 type="text"
-                                className="border border-gray-300 p-2 py-1 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none text-[11pt]"
+                                className="border border-gray-300 p-2 py-1 rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none text-[11pt]"
                                 onChange={handleEngineNumberChange}
                                 required
                                 maxLength={10}
@@ -259,7 +259,7 @@ function MotorInsuranceForm() {
                                 name="chassis_number"
                                 placeholder="Chassis number"
                                 type="text"
-                                className="border border-gray-300 p-2 py-1 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none text-[11pt]"
+                                className="border border-gray-300 p-2 py-1 rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none text-[11pt]"
                                 onChange={handleEngineChassisChange}
                                 required
                                 maxLength={10}
@@ -274,7 +274,7 @@ function MotorInsuranceForm() {
                             name="cover_end"
                             placeholder="Cover end"
                             type="date"
-                            className="border border-gray-300 p-2 py-1 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none text-[11pt]"
+                            className="border border-gray-300 p-2 py-1 rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none text-[11pt]"
                             onChange={handleCoverEndChange}
                             required
                         />
