@@ -23,9 +23,9 @@ function Navbar() {
           </a>
 
           {/* Desktop Menu */}
-          <div className="hidden md:flex md:items-center sm:items-center md:space-x-6">
+          <div className="hidden md:flex md:items-center  md:space-x-6">
             {isAuthenticated ? (
-              <>
+              <div className="flex gap-4">
                 <a
                   href="/claims"
                   className="text-white hover:text-orange-200 transition"
@@ -50,11 +50,12 @@ function Navbar() {
                 >
                   Contact
                 </a>
-              </>
+              </div>
             ) : null}
+          </div>
 
             {!isAuthenticated ? (
-              <>
+              <div className="hidden md:flex md:gap-2">
                 <a
                   href="/login"
                   className="px-3 py-1 rounded-md text-sm font-medium text-white bg-gray-700 hover:bg-gray-800"
@@ -67,19 +68,21 @@ function Navbar() {
                 >
                   Sign Up
                 </a>
-              </>
+              </div>
             ) : (
+              <span className="hidden md:flex">
+
               <button
                 onClick={() => {
                   handleLogout();
                   window.location.href = "/";
                 }}
                 className="px-3 py-1 rounded-md text-sm font-medium bg-red-500 text-white hover:bg-red-600"
-              >
+                >
                 Logout
               </button>
+                </span>
             )}
-          </div>
 
           {/* Mobile menu button */}
           <div className="md:hidden">
