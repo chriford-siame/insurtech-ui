@@ -25,7 +25,7 @@ function App() {
   return (
     <div>
       <Navbar />
-      <div className="flex justify-center pt-6 pb-16">
+      <div className="flex justify-center pt-6 pb-16 bg-gray-50">
         <div className=" md:w-[75%] lg:md:w-[75%] xl:md:w-[75%] text-2xl">
           <BrowserRouter>
             <Routes>
