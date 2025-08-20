@@ -14,8 +14,8 @@ export const login = async (username: string, password: string) => {
 };
 
 // Function to log in and get access & refresh tokens
-export const signup = async (username: string, first_name: string, last_name: string, password: string) => {
-  const response = await axios.post(`http://localhost:8000/users/`, { username, first_name, last_name, password });
+export const signup = async (username: string, email: string, first_name: string, last_name: string, password: string) => {
+  const response = await axios.post(`http://localhost:8000/users/`, { username, email, first_name, last_name, password });
   if (response.data.access) {
     alert("account create successfully")
     window.location.href = "/login"

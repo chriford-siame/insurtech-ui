@@ -5,6 +5,7 @@ import { Car } from "lucide-react";
 
 export default function Signup() {
   const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [password, setPassword] = useState("");
@@ -15,8 +16,8 @@ export default function Signup() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      await handleSignup(firstName, lastName, username, password);
-      window.location.href = "/";
+      await handleSignup(firstName, lastName, username, email, password);
+      window.location.href = "/login";
     } catch (err) {
       setError("Something went wrong. Please try again.");
     }
@@ -104,11 +105,29 @@ export default function Signup() {
               Email Address
             </label>
             <input
+              type="email"
+              onChange={(e) => setEmail(e.target.value)}
+              required
+              maxLength={50}
+              placeholder="you@example.com"
+              className="mt-1 w-full text-[14pt] px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.4 }}
+          >
+            <label className="block text-sm font-medium text-gray-700">
+              Username
+            </label>
+            <input
               type="text"
               onChange={(e) => setUsername(e.target.value)}
               required
               maxLength={50}
-              placeholder="you@example.com"
+              placeholder="your username"
               className="mt-1 w-full text-[14pt] px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </motion.div>

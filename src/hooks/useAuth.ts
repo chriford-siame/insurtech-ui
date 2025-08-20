@@ -15,11 +15,13 @@ export const useAuth = () => {
     }
   };
 
-  const handleSignup = async (first_name: string, last_name: string, username: string, password: string) => {
+  const handleSignup = async (first_name: string, last_name: string, username: string, email: string, password: string) => {
     try {
-      await signup(first_name,
-        last_name,
+      await signup(
         username,
+        email,
+        first_name,
+        last_name,
         password,);
       setIsAuthenticated(true);
 
