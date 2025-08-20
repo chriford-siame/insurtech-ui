@@ -1,103 +1,159 @@
-import React, { useState } from 'react'
-import { useAuth } from 'src/hooks/useAuth';
+import React, { useState } from "react";
+import { useAuth } from "src/hooks/useAuth";
+import { motion } from "framer-motion";
+import { Car } from "lucide-react";
 
-function Login() {
-    const [username, setUsername] = useState("");
-    const [firstName, setFirstName] = useState("");
-    const [lastName, setLastName] = useState("");
-    const [password, setPassword] = useState("");
-    const [error, setError] = useState("");
+export default function Signup() {
+  const [username, setUsername] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
-    const { handleSignup } = useAuth();
+  const { handleSignup } = useAuth();
 
-
-    const handleUsernameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setUsername(e.target.value);
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    try {
+      await handleSignup(firstName, lastName, username, password);
+      window.location.href = "/";
+    } catch (err) {
+      setError("Something went wrong. Please try again.");
     }
-    const handlesetFirstNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setFirstName(e.target.value);
-    }
-    const handleLastNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setLastName(e.target.value);
-    }
-    const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setPassword(e.target.value);
-    }
+  };
 
-    const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault();
-        try {
-            await handleSignup(firstName, lastName, username, password);
-            // Redirect after login
-            window.location.href = "/";
-        } catch (err) {
-            setError("Invalid credentials");
-        }
-    }
+  return (
+    <div className="min-h-screen flex items-center justify-center">
+      <motion.div
+        initial={{ opacity: 0, y: 40 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+        className="w-full max-w-md bg-white rounded-2xl shadow-xl p-8"
+      >
+        {/* Logo + Title */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 0.2, duration: 0.5 }}
+          className="flex flex-col items-center mb-6"
+        >
+          <Car className="w-12 h-12 text-blue-600 mb-2" />
+          <h1 className="text-2xl font-bold text-gray-800">
+            Create Your Account
+          </h1>
+          <p className="text-gray-500 text-sm">
+            Join us to get your motor quotes instantly
+          </p>
+        </motion.div>
 
-    return (
-        <div className="flex justify-center">
-            <div className=" md:w-[45%] border p-2 lg:md:w-[45%] xl:md:w-[45%] text-2xl">
-                <div className="flex justify-center my-2 w-full">
-                    <p className="text-gray-500 font-bold">Login</p>
-                </div>
-                {/* <hr /> */}
-                <form onSubmit={handleSubmit} className='grid container gap-2 text-[12pt]'>
-                    <label htmlFor="username">Username</label>
-                    <input
-                        name='username'
-                        id='username'
-                        placeholder=''
-                        type="text"
-                        className='border border-gray-300 p-2'
-                        onChange={handleUsernameChange}
-                        required={true}
-                        maxLength={50} />
+        {/* Error Message */}
+        {error && (
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="mb-4 text-sm text-red-500 text-center"
+          >
+            {error}
+          </motion.p>
+        )}
 
-                    <label htmlFor="firstname">First Name</label>
-                    <input
-                        name='firstname'
-                        id='firstname'
-                        placeholder=''
-                        type="text"
-                        className='border border-gray-300 p-2'
-                        onChange={handlesetFirstNameChange}
-                        required={true}
-                        maxLength={50} />
+        {/* Form */}
+        <form className="space-y-5" onSubmit={handleSubmit}>
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.3 }}
+          >
+            <label className="block text-sm font-medium text-gray-700">
+              First Name
+            </label>
+            <input
+              type="text"
+              onChange={(e) => setFirstName(e.target.value)}
+              required
+              maxLength={50}
+              placeholder="John"
+              className="mt-1 w-full text-[14pt] px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+          </motion.div>
 
-                    <label htmlFor="lastname">Last Name</label>
-                    <input
-                        name='lastname'
-                        id='lastname'
-                        placeholder=''
-                        type="text"
-                        className='border border-gray-300 p-2'
-                        onChange={handleLastNameChange}
-                        required={true}
-                        maxLength={50} />
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.35 }}
+          >
+            <label className="block text-sm font-medium text-gray-700">
+              Last Name
+            </label>
+            <input
+              type="text"
+              onChange={(e) => setLastName(e.target.value)}
+              required
+              maxLength={50}
+              placeholder="Doe"
+              className="mt-1 w-full text-[14pt] px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+          </motion.div>
 
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.4 }}
+          >
+            <label className="block text-sm font-medium text-gray-700">
+              Email Address
+            </label>
+            <input
+              type="text"
+              onChange={(e) => setUsername(e.target.value)}
+              required
+              maxLength={50}
+              placeholder="you@example.com"
+              className="mt-1 w-full text-[14pt] px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+          </motion.div>
 
-                    <label htmlFor="password">Password</label>
-                    <input
-                        name='password'
-                        id='password'
-                        placeholder=''
-                        type="password"
-                        className='border border-gray-300 p-2'
-                        onChange={handlePasswordChange}
-                        required={true}
-                    />
-                    <div className="grid gap-1">
-                        <div className='flex justify-between'>
-                            <a href='#' className=' text-blue-400 hover:text-blue-500'>Forgot password</a>
-                            <p>Don't have an account? <a href='/register' className=' text-blue-400 hover:text-blue-500'>Signup</a></p>
-                        </div>
-                    </div>
-                    <button type="submit" className='text-white bg-blue-600 p-2 w-full'>submit</button>
-                </form>
-            </div>
-        </div>
-    );
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.45 }}
+          >
+            <label className="block text-sm font-medium text-gray-700">
+              Password
+            </label>
+            <input
+              type="password"
+              onChange={(e) => setPassword(e.target.value)}
+              required
+              placeholder="••••••••"
+              className="mt-1 w-full text-[14pt] px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+          </motion.div>
+
+          <motion.button
+            whileHover={{ scale: 1.03 }}
+            whileTap={{ scale: 0.97 }}
+            transition={{ type: "spring", stiffness: 300 }}
+            type="submit"
+            className="w-full text-[14pt] py-2 rounded-xl bg-blue-600 text-white font-semibold shadow-md hover:bg-blue-700 transition"
+          >
+            Sign Up
+          </motion.button>
+        </form>
+
+        {/* Footer */}
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.6 }}
+          className="mt-6 text-center text-sm text-gray-600"
+        >
+          Already have an account?{" "}
+          <a href="/login" className="text-blue-600 hover:underline font-medium">
+            Login
+          </a>
+        </motion.p>
+      </motion.div>
+    </div>
+  );
 }
-
-export default Login
